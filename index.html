@@ -7,6 +7,11 @@
   <meta name="description" content="Description">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+  <style>
+    .hidden > ul{
+      display: none
+    }
+  </style>
 </head>
 <body>
   <div id="app">
@@ -17,6 +22,12 @@
     <!-- compatible -->
   </div>
   <script>
+    var vDom = {};
+    function VNode(name = '', vClass = '', origin = document) {
+      this.name = name.toUpperCase();
+      this.vClass = vClass.split('');
+      this.origin = origin;    
+    }
     window.$docsify = {
       repo: 'https://github.com/jaxiejun/jaxiejun.github.io',
       loadSidebar: true,
@@ -38,7 +49,38 @@
         },
         // 搜索标题的最大程级, 1 - 6
         depth: 2
-      }
+      },
+      plugins: [function(hook, vm) {
+        hook.ready(function () {
+          //ie9以下不支持document.getElementsByClassName
+          var navDom = document.getElementsByClassName('sidebar-nav')[0];
+          //一级目录
+          var liDom = navDom.childNodes[0].childNodes;
+          //顶层
+          vDom.root = [];
+          console.log(liDom)
+          
+          // vDom.root.child = [];
+          for(var i = 0; i < liDom.length; i ++){
+            vDom.root.push(new VNode('LI', liDom[i].getAttribute('class') || '', liDom[i]));
+          }
+          //点击事件
+          navDom.onclick = function (e) {
+            if(e.target.nextSibling && e.target.nextSibling.nodeName === 'UL'){
+              // e.target.class
+            }
+          }
+        })
+        hook.doneEach(function () {
+          //一开始全部隐藏 根据vDom进行展开
+          console.log(vDom.root)
+          // for(var i = 0; i < vDom.root.child.length; i ++){
+            // if(vDom.root.child[0].vClass){
+            //   vDom.root.child[0].origin.setAttribute('class', 'hidden')
+            // }
+          // }
+        })
+      }]
     }
   </script>
   <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
