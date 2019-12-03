@@ -2,6 +2,7 @@
 - [javascript](/javascript)
     - [正则](/javascript-Reg)
 - [插件](plugins)
+    - [docsify可折叠](/plugins-docsify)
     - [图片切割](/plugins-imgCover)
 - [IOS](ios)
 - [app](/app)

@@ -4,20 +4,36 @@
   <meta charset="UTF-8">
   <title>jaxiejun</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="Description">
+  <meta name="keywords" content="docsify 文档 jaxiejun" />
+  <meta name="description" content="jaxiejun 个人博客">
+  <meta name="robots" content="all" />
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+  <link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css">
   <style>
     .hidden > ul{
       display: none
+    }
+    .content i{
+      margin: 0;
+      padding: 0;
+      color: #2CAE52;
+      font-style: inherit;
+    }
+    .content i:before{
+      content: '//';
+    }
+    code{
+      display: block;
+      line-height: 2em;
+      color: #999 !important;
     }
   </style>
 </head>
 <body>
   <div id="app">
     <nav>
-      <a href="#/">中文</a>
-      <a href="#/EN/">EN</a>
+      <!-- <a href="#/">中文</a>
+      <a href="#/EN/">EN</a> -->
     </nav>
     <!-- compatible -->
   </div>
@@ -45,42 +61,40 @@
         // 搜索标题的最大程级, 1 - 6
         depth: 2
       },
-      plugins: [function(hook, vm) {
-        hook.ready(function () {
-          //ie9以下不支持document.getElementsByClassName
-          var navDom = document.getElementsByClassName('sidebar-nav')[0];
-          //顶层
-          vDom.root = navDom;
-          // if(localStorage.getItem('liArr')){
-          //   vDom.li = localStorage.getItem('liArr');
-          //   render();
-          // }else{
-            //展开缓存还未ok
-            vDom.li = new Array(navDom.childNodes[0].childNodes.length);
-          // }
-          //点击事件
-          navDom.onclick = function (e) {
-            //判断子节点是否有active,有则不伸缩
-            if(e.target.nextSibling && e.target.nextSibling.nodeName === 'UL'){
-              if(e.target.nextSibling.innerHTML.indexOf('active') < 0){
-                for(var i = 0; i < navDom.childNodes[0].childNodes.length; i++){
-                  if(navDom.childNodes[0].childNodes[i] === e.target.parentNode){
-                    vDom.li[i] = vDom.li[i] ? '' : true;
-                    localStorage.setItem('liArr', vDom.li)
-                  }
-                }
-              }
-            }
-            if(getClass(e.target.parentNode).indexOf('active') > -1) render();
-          }
-
-
-        })
-        hook.doneEach(function () {
-          if(!vDom.root) return false;
-          render()
-        })
-      }]
+      // plugins: [function(hook, vm) {
+      //   hook.ready(function () {
+      //     //ie9以下不支持document.getElementsByClassName
+      //     var navDom = document.getElementsByClassName('sidebar-nav')[0];
+      //     //顶层
+      //     vDom.root = navDom;
+      //     if(localStorage.getItem('liArr')){
+      //       vDom.li = localStorage.getItem('liArr').split(',');
+      //       render();
+      //     }else{
+      //       //展开缓存还未ok
+      //       vDom.li = new Array(navDom.childNodes[0].childNodes.length);
+      //     }
+      //     //点击事件
+      //     navDom.onclick = function (e) {
+      //       //判断子节点是否有active,有则不伸缩
+      //       if(e.target.nextSibling && e.target.nextSibling.nodeName === 'UL'){
+      //         if(e.target.nextSibling.innerHTML.indexOf('active') < 0){
+      //           for(var i = 0; i < navDom.childNodes[0].childNodes.length; i++){
+      //             if(navDom.childNodes[0].childNodes[i] === e.target.parentNode){
+      //               vDom.li[i] = vDom.li[i] ? '' : true;
+      //               localStorage.setItem('liArr', vDom.li)
+      //             }
+      //           }
+      //         }
+      //       }
+      //       if(getClass(e.target.parentNode).indexOf('active') > -1) render();
+      //     }
+      //   })
+      //   hook.doneEach(function () {
+      //     if(!vDom.root) return false;
+      //     render()
+      //   })
+      // }]
     }
 
     function render() {
