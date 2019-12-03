@@ -61,40 +61,40 @@
         // 搜索标题的最大程级, 1 - 6
         depth: 2
       },
-      // plugins: [function(hook, vm) {
-      //   hook.ready(function () {
-      //     //ie9以下不支持document.getElementsByClassName
-      //     var navDom = document.getElementsByClassName('sidebar-nav')[0];
-      //     //顶层
-      //     vDom.root = navDom;
-      //     if(localStorage.getItem('liArr')){
-      //       vDom.li = localStorage.getItem('liArr').split(',');
-      //       render();
-      //     }else{
-      //       //展开缓存还未ok
-      //       vDom.li = new Array(navDom.childNodes[0].childNodes.length);
-      //     }
-      //     //点击事件
-      //     navDom.onclick = function (e) {
-      //       //判断子节点是否有active,有则不伸缩
-      //       if(e.target.nextSibling && e.target.nextSibling.nodeName === 'UL'){
-      //         if(e.target.nextSibling.innerHTML.indexOf('active') < 0){
-      //           for(var i = 0; i < navDom.childNodes[0].childNodes.length; i++){
-      //             if(navDom.childNodes[0].childNodes[i] === e.target.parentNode){
-      //               vDom.li[i] = vDom.li[i] ? '' : true;
-      //               localStorage.setItem('liArr', vDom.li)
-      //             }
-      //           }
-      //         }
-      //       }
-      //       if(getClass(e.target.parentNode).indexOf('active') > -1) render();
-      //     }
-      //   })
-      //   hook.doneEach(function () {
-      //     if(!vDom.root) return false;
-      //     render()
-      //   })
-      // }]
+      plugins: [function(hook, vm) {
+        hook.ready(function () {
+          //ie9以下不支持document.getElementsByClassName
+          var navDom = document.getElementsByClassName('sidebar-nav')[0];
+          //顶层
+          vDom.root = navDom;
+          if(localStorage.getItem('liArr')){
+            vDom.li = localStorage.getItem('liArr').split(',');
+            render();
+          }else{
+            //展开缓存还未ok
+            vDom.li = new Array(navDom.childNodes[0].childNodes.length);
+          }
+          //点击事件
+          navDom.onclick = function (e) {
+            //判断子节点是否有active,有则不伸缩
+            if(e.target.nextSibling && e.target.nextSibling.nodeName === 'UL'){
+              if(e.target.nextSibling.innerHTML.indexOf('active') < 0){
+                for(var i = 0; i < navDom.childNodes[0].childNodes.length; i++){
+                  if(navDom.childNodes[0].childNodes[i] === e.target.parentNode){
+                    vDom.li[i] = vDom.li[i] ? '' : true;
+                    localStorage.setItem('liArr', vDom.li)
+                  }
+                }
+              }
+            }
+            if(getClass(e.target.parentNode).indexOf('active') > -1) render();
+          }
+        })
+        hook.doneEach(function () {
+          if(!vDom.root) return false;
+          render()
+        })
+      }]
     }
 
     function render() {
