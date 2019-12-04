@@ -1,10 +1,12 @@
 - [引言]()
 - [javascript](/javascript)
     - [正则](/javascript-Reg)
+    - [高阶函数源码实现](/javascript-func)
 - [插件](plugins)
     - [docsify可折叠](/plugins-docsify)
     - [图片切割](/plugins-imgCover)
 - [IOS](ios)
-- [app](/app)
+
+<!-- - [app](/app)
     - [LOL](/app-lol)
-    - [旅游分享](/app-tourShare)
+    - [旅游分享](/app-tourShare) -->

@@ -1,1 +1,1 @@
-<a href="https://tool.oschina.net/uploads/apidocs/jquery/regexp.html" target="_black">正则</a>
+收藏一个api,以便后面查询&nbsp;<a href="https://tool.oschina.net/uploads/apidocs/jquery/regexp.html" target="_black">正则</a>

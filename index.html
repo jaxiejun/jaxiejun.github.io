@@ -92,6 +92,12 @@
         })
         hook.doneEach(function () {
           if(!vDom.root) return false;
+          //active在子节点, 父节点展开
+          for(var i = 0; i < vDom.root.childNodes[0].childNodes.length; i ++ ){
+            if(vDom.root.childNodes[0].childNodes[i].innerHTML.indexOf('active') > 0){
+              vDom.li[i] = false;
+            }
+          }
           render()
         })
       }]

@@ -85,6 +85,12 @@ plugins: [function(hook, vm) {
     hook.doneEach(function () {
         <i>第一次进来不渲染</i>
         if(!vDom.root) return false;
+          <i>active在子节点, 父节点展开</i>
+          for(var i = 0; i < vDom.root.childNodes[0].childNodes.length; i ++ ){
+            if(vDom.root.childNodes[0].childNodes[i].innerHTML.indexOf('active') > 0){
+              vDom.li[i] = false;
+            }
+          }
         render()
     })
 }]
