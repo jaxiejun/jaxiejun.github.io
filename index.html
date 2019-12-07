@@ -13,19 +13,8 @@
     .hidden > ul{
       display: none
     }
-    .content i{
-      margin: 0;
-      padding: 0;
-      color: #2CAE52;
-      font-style: inherit;
-    }
-    .content i:before{
-      content: '//';
-    }
-    code{
-      display: block;
-      line-height: 2em;
-      color: #999 !important;
+    code .comment{
+      color: #2CAE52 !important;
     }
   </style>
 </head>
@@ -60,6 +49,11 @@
         },
         // 搜索标题的最大程级, 1 - 6
         depth: 2
+      },
+      copyCode: {
+        buttonText: '复制到剪贴板',
+        errorText: '错误',
+        successText: '已复制',
       },
       plugins: [function(hook, vm) {
         hook.ready(function () {
@@ -147,5 +141,6 @@
   <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
   <script src="//unpkg.com/docsify/lib/plugins/search.js"></script>
   <script src="//unpkg.com/prismjs/components/prism-bash.js"></script>
+  <script src="//unpkg.com/docsify-copy-code@2.1.0/dist/docsify-copy-code.min.js"></script>
 </body>
 </html>

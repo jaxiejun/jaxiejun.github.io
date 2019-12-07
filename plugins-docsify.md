@@ -9,18 +9,19 @@
 
 ### 基本构建
 <p>封装一个针对class增删查的工具方法</p>
-<code>
-<i>查询</i>
+
+```javascript
+//查询
 function getClass(n) {
     if(n.getAttribute){
         var c = n.className;
         if(c === null)return ''
         var arr = c.split(/\s+/);
-        <i>切成数组返回,没class的返[]</i>
+        //切成数组返回,没class的返[]
         return arr[0] === '' ? [] : arr
     }
 }
-<i>添加</i>
+//添加
 function setClass(n, c){
     if(n.getAttribute){
         var oC = n.className;
@@ -33,7 +34,7 @@ function setClass(n, c){
         }
     }
 }
-<i>删除</i>
+//删除
 function reClass(n, c){
     if(n.getAttribute){
         var oC = n.className;
@@ -42,35 +43,37 @@ function reClass(n, c){
         n.setAttribute('class', oC);
     }
 }
-</code>
+```
+
 <p>在docsify的plugins里初始化</p>
-<code>
-<i>初始化一个对象放置状态</i>
+
+```javascript
+//初始化一个对象放置状态
 var vDom = {};
-</code>
-<code>
+```
+```javascript
 plugins: [function(hook, vm) {
     hook.ready(function () {
-        <i>ie9以下不支持document.getElementsByClassName</i>
+        //ie9以下不支持document.getElementsByClassName
         var navDom = document.getElementsByClassName('sidebar-nav')[0];
-        <i>顶层dom保存</i>
+        //顶层dom保存
         vDom.root = navDom;
         if(localStorage.getItem('liArr')){
-            <i>本地有缓存则直接渲染</i>
+            //本地有缓存则直接渲染
             vDom.li = localStorage.getItem('liArr').split(',');
             render();
         }else{
-            <i>初始状态</i>
+            //初始状态
             vDom.li = new Array(navDom.childNodes[0].childNodes.length);
         }
-        <i>点击事件</i>
+        //点击事件
         navDom.onclick = function (e) {
-            <i>点击的a标签如果下层有ul,则执行</i>
+            //点击的a标签如果下层有ul,则执行
             if(e.target.nextSibling && e.target.nextSibling.nodeName === 'UL'){
-                <i>判断子节点是否有active,有则不隐藏</i>
+                //判断子节点是否有active,有则不隐藏
                 if(e.target.nextSibling.innerHTML.indexOf('active') < 0){
                     for(var i = 0; i < navDom.childNodes[0].childNodes.length; i++){
-                        <i>找到对应的dom,状态存到vDom.li数组中</i>
+                        //找到对应的dom,状态存到vDom.li数组中
                         if(navDom.childNodes[0].childNodes[i] === e.target.parentNode){
                         vDom.li[i] = vDom.li[i] ? '' : true;
                         localStorage.setItem('liArr', vDom.li)
@@ -81,11 +84,11 @@ plugins: [function(hook, vm) {
             if(getClass(e.target.parentNode).indexOf('active') > -1) render();
         }
     })
-    <i>路由切换</i>
+    //路由切换
     hook.doneEach(function () {
-        <i>第一次进来不渲染</i>
+        //第一次进来不渲染
         if(!vDom.root) return false;
-          <i>active在子节点, 父节点展开</i>
+          //active在子节点, 父节点展开
           for(var i = 0; i < vDom.root.childNodes[0].childNodes.length; i ++ ){
             if(vDom.root.childNodes[0].childNodes[i].innerHTML.indexOf('active') > 0){
               vDom.li[i] = false;
@@ -94,16 +97,17 @@ plugins: [function(hook, vm) {
         render()
     })
 }]
-</code>
+```
 <p>render函数与css</p>
-<code>
+
+```css
 .hidden > ul{
     display: none
 }
-</code>
-<code>
+```
+```javascript
 function render() {
-    <i>根据sidebar-nav和子节点状态进行隐藏与显示</i>
+    //根据sidebar-nav和子节点状态进行隐藏与显示
     for(var i = 0; i < vDom.root.childNodes[0].childNodes.length; i ++){
         if(vDom.li[i]){
             if(getClass(vDom.root.childNodes[0].childNodes[i]).indexOf('hidden') < 0)
@@ -113,4 +117,4 @@ function render() {
         }
     }
 }
-</code>
+```
